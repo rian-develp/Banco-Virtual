@@ -3,13 +3,19 @@ import styled from "styled-components";
 export const ContainerForm = styled.View`
     flex-direction: row;
     width: ${90}%;
-    height: 64px;
-    border-radius: 8px;
-    border-width: 1px;
-    border-color: ${(props) => props.containerFormBorderColor};
+    height: ${100}%;
     padding: 8px;
     align-items: center;
     justify-content: flex-start;
-    margin-top: ${(props) => props.containerFormMarginTop || 0};
-    margin-left: 24px;
+`;
+export const Container = styled.View`
+    flex-direction: column;
+    width: ${90}%;
+    height: 64px;
+    padding: 8px;
+    margin-top: ${(props) => props.containerMarginTop || 0};
+    margin-left: 16px;
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: ${(props) => props.containerBorderColor};
 `;

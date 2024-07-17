@@ -1,7 +1,7 @@
-import {View, TextInput, StyleSheet, Animated} from "react-native";
+import {View, TextInput, StyleSheet, Animated, Text} from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRef, useState } from "react";
-import { ContainerForm } from "../styled_components/styled";
+import { Container, ContainerForm } from "../styled_components/styled";
 
 export const Form = ({placeholder, label, onChangeText, error, nameIcon, autoCapitalize, marginTop}) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -11,7 +11,7 @@ export const Form = ({placeholder, label, onChangeText, error, nameIcon, autoCap
         left: 36,
         top: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [17, -12]
+            outputRange: [10, -20]
         }),
         fontSize: labelPosition.interpolate({
             inputRange: [0, 1],
@@ -52,21 +52,22 @@ export const Form = ({placeholder, label, onChangeText, error, nameIcon, autoCap
         }
     }
     return(
-        <ContainerForm containerFormMarginTop={marginTop} containerFormBorderColor={error ? 'red' : 'black'}>
-            <MaterialIcons color={'black'} size={16} name={nameIcon}/>
-            <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>
-            <TextInput 
-            style={{flex: 1, fontSize: 18, padding: 8}}
-            placeholder={isFocused ? placeholder : ''} 
-            autoCorrect={false}
-            value={text}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onChangeText={handleTextChange}
-            autoCapitalize={autoCapitalize}
-            />
-            {error && <Text style={styles.errorLabel}>{error}</Text>}
-        </ContainerForm>
+        <Container containerMarginTop={marginTop} containerBorderColor={error ? 'red' : 'black'}>
+            <ContainerForm>
+                <MaterialIcons color={'black'} size={24} name={nameIcon} style={{width: '10%'}}/>
+                <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>
+                <TextInput 
+                style={{height: '100%', width: '100%',fontSize: 18, padding: 0}}
+                placeholder={isFocused ? placeholder : ''} 
+                autoCorrect={false}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChangeText={handleTextChange}
+                autoCapitalize={autoCapitalize}
+                />
+            </ContainerForm>
+                {error && <Text style={styles.errorLabel}>{error}</Text>}
+        </Container>
     );
 }
 
@@ -76,12 +77,13 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: 'white',
         position: 'absolute',
-        zIndex: 1,
+        zIndex: -1,
+        paddingHorizontal: 8
     },
 
-    errorMessage: {
+    errorLabel: {
         fontSize: 16,
         color: 'red',
-        padding: 16
+        padding: 8
     }
 });
