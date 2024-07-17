@@ -1,9 +1,9 @@
-import {TextInput, StyleSheet, Animated} from "react-native";
+import {TextInput, StyleSheet, Animated, Text} from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState, useRef } from "react";
-import { ContainerForm } from "../styled_components/styled";
+import { Container, ContainerForm } from "../styled_components/styled";
 
-export const PasswordForm = ({placeholder, startIconName, onChangeText, error, marginTop}) => {
+export const PasswordForm = ({placeholder, startIconName, onChangeText, error, marginTop, label}) => {
     const [hidePassword, setHidePassword] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState('');
@@ -13,11 +13,11 @@ export const PasswordForm = ({placeholder, startIconName, onChangeText, error, m
         left: 36,
         top: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [16, -12]
+            outputRange: [10, -20]
         }),
         fontSize: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [18, 16]
+            outputRange: [18, 18]
         }),
         color: labelPosition.interpolate({
             inputRange: [0, 1],
@@ -57,22 +57,27 @@ export const PasswordForm = ({placeholder, startIconName, onChangeText, error, m
     };
 
     return (
-        <ContainerForm containerFormMarginTop={marginTop} containerFormBorderColor={error ? 'red' : 'black'}>
-            <MaterialIcons color={error ? 'red' : 'black'} size={24} name={startIconName}/>
-            <Animated.Text style={[styles.label, labelStyle]}>Password</Animated.Text>
-            <TextInput placeholder={isFocused ? placeholder : ''} style={{flex: 1, fontSize: 18, padding: 8}}
-            autoCorrect={false}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            onChangeText={handleTextChange}
-            secureTextEntry={hidePassword}
-            value={text}
-            />
-            <MaterialIcons color={'black'} size={24} name={hidePassword ? "visibility" : "visibility-off"} style={{padding: 8}} onPress={() => {
-                setHidePassword(!hidePassword)
-            }}/>
-            {error && <Text style={styles.errorLabel}>{error}</Text>}
-        </ContainerForm>
+        <Container containerMarginTop={marginTop} containerBorderColor={error ? 'red' : 'black'}>
+            <ContainerForm>
+                <MaterialIcons color={error ? 'red' : 'black'} size={24} name={startIconName} style={{width:'10%', paddingVertical: 0}}/>
+                <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>
+                <TextInput placeholder={isFocused ? placeholder : ''} 
+                style={{width: '95%', fontSize: 18}}
+                autoCorrect={false}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                onChangeText={handleTextChange}
+                secureTextEntry={hidePassword}
+                value={text}
+                />
+                <MaterialIcons color={'black'} size={24} name={hidePassword ? "visibility" : "visibility-off"} 
+                style={{width:'10%'}}
+                onPress={() => {
+                    setHidePassword(!hidePassword)
+                }}/>
+            </ContainerForm>
+                {error && <Text style={styles.errorLabel}>{error}</Text>}
+        </Container>
     );
 }
 
@@ -81,10 +86,12 @@ const styles = StyleSheet.create({
         color: 'black', 
         backgroundColor: '#ffffff', 
         position: 'absolute',
+        zIndex: -1,
+        paddingHorizontal: 8
     },
 
     errorLabel: {
-        marginTop: 8,
+        marginTop: 16,
         fontSize: 16,
         color: 'red'
     }
