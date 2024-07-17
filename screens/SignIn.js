@@ -20,7 +20,7 @@ export const SignIn = () => {
     });
 
     function validate(){
-        let booleanValidate = false;
+        let booleanValidate = false; 
 
         if(inputs.email == null || inputs.email == ''){
             handleError('Email inválido', 'email');
@@ -31,9 +31,10 @@ export const SignIn = () => {
         }
 
         if({...inputs} == null || {...inputs} == ''){
-            booleanValidate = false
+            booleanValidate = false;
+            
         } else {
-            booleanValidate = true
+            booleanValidate = true;            
         }
 
         if(booleanValidate == false){
@@ -76,7 +77,7 @@ export const SignIn = () => {
 
             <ToogleSwitch/>
 
-            <CustomButton variant={false} marginTop={48} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS}/>
+            <CustomButton variant={false} marginTop={48} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS} onPress={validate}/>
             <CustomButton variant={true} marginTop={24} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_FORGET_PASSWORD}/>
         </View>
     );
