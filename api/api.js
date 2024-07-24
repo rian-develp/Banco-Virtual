@@ -1,20 +1,7 @@
 
-export const Api = () => {
-    const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
+const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
 
-const Post = async (endPoint, data ) => {
-    return DoRequest("POST", endPoint, data)
-}
-
-const Put = async (data, endPoint) => {
-    return DoRequest("PUT", endPoint, data)
-}
-
-const Get = async (endPoint) => {
-    return DoRequest("GET", endPoint)
-}
-
-const DoRequest = async (method, endPoint, data) => {
+export const DoRequest = async (method, endPoint, data) => {
     const response = await fetch(baseUrl+endPoint, {
     method: method,
     headers: {
@@ -42,10 +29,3 @@ const DoRequest = async (method, endPoint, data) => {
     body: res
     };
 }
-
-return {
-    Post,
-    Put,
-    Get
-  }
-};

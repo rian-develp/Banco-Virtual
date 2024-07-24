@@ -7,7 +7,7 @@ import { PasswordForm } from "../components/PasswordForm";
 
 export const SignUp = () => {
     const text = 'Com a sua carteira de cartões de crédito você pode fazer suas transações em qualquer lugar'
-    const [inputs, setInputs] = useState({
+    const [data, setData] = useState({
         name: '',
         birthdate: '',
         numberPhone: '',
@@ -24,19 +24,55 @@ export const SignUp = () => {
         confirmPassword: ''
     });
 
+    const DoRequest = async (method, endPoint, data) => {
+        const response = await fetch(baseUrl+endPoint, {
+        method: method,
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Auth-Token': 'xhjXi2YSrWVQ03c2johE3er4U3Cud24k5AzFUljrfm9LYC2YhykbJdGepiDIZwzJ.creditcard',
+        'X-User-Id': '10205000000176097'
+        },
+        body: JSON.stringify(data),
+        });
+    
+        var res = await response.json()
+    
+        console.log('REQUEST =>')
+        console.log('POST => '+baseUrl+endPoint)
+        console.log('BODY => '+JSON.stringify(data))
+        console.log('\n\n ')
+        console.log('RESULT =>')
+        console.log('POST =>'+baseUrl+endPoint)
+        console.log('CODE => '+response.status)
+        console.log('RESPONSE => '+JSON.stringify(res, null, 2))
+        
+        return {
+        code: response.status,
+        body: res
+        };
+    }
+
     function validate(){
-        if(inputs.name == null || inputs.name == ''){
+        if(data.name == null || data.name == ''){
             handleError('nome inválido', 'name');
         }
-        if(inputs.birthdate == null || inputs.birthdate == ''){
+        if(data.birthdate == null || data.birthdate == ''){
             handleError('data inválida', 'birthdate');
         }
-        if(inputs.numberPhone.length != 11 || inputs.numberPhone == ''){
+        if(data.numberPhone.length != 11 || data.numberPhone == ''){
             handleError('número inválido', 'numberPhone');
         }
-        if(inputs.email == null || inputs.email == ''){
+        if(data.email == null || data.email == ''){
             handleError('nome inválido', 'email');
         }
+
+        DoRequest("POST", "signup", data).then((success) => {
+            console.log(success);
+        }).catch((error)=> {
+            console.log(error);
+        })
+
     }
 
     function handleError(errorMessage, input){
@@ -44,7 +80,7 @@ export const SignUp = () => {
     }
 
     function handleChangeText(text, input){
-        setInputs((prevState) => ({...prevState, [input]: text}));
+        setData((prevState) => ({...prevState, [input]: text}));
     }
     return(
         <View style={styles.container}>
