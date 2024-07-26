@@ -6,10 +6,12 @@ import themes from '../themes/themes';
 import { CustomButton } from '../components/CustomButton';
 import { ToogleSwitch } from '../components/ToogleSwitch';
 import { useState } from 'react';
-import { api } from '../api/api';
+import { useNavigation } from '@react-navigation/native';
+
 
 export const SignIn = () => {
     const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
+    const navigation = useNavigation();
     const [data, setData] = useState({
         email: null,
         password: null
@@ -21,24 +23,27 @@ export const SignIn = () => {
     });
 
     function validate(){
-        // if(data.email == null || data.email == ''){
-        //     handleError('Email inválido', 'email');
-        // }
+        if(data.email == null || data.email == ''){
+            handleError('Email inválido', 'email');
+        }
 
-        // if(data.password == null || data.password == ''){
-        //     handleError('Senha inválida', 'password');
-        // }
+        if(data.password == null || data.password == ''){
+            handleError('Senha inválida', 'password');
+        }
         
-        // if({...data} != null && {...data} != ''){
-        //     handleError(null, 'email');
-        //     handleError(null, 'password');
-        // }
+        if({...data} != null && {...data} != ''){
+            handleError(null, 'email');
+            handleError(null, 'password');
+        } 
         DoRequest("POST", "signin", data).then((success) => {
             console.log(success);
+            if(success.code === 200){
+                navigation.navigate("Home");
+                console.log("O  code => " + success.code);
+            }
         }).catch((error)=> {
             console.log(error);
         })
-   
     }
 
     const DoRequest = async (method, endPoint, data) => {
@@ -90,10 +95,13 @@ export const SignIn = () => {
                 <Form
                 placeholder={'Por favor insira seu email'}
                 label={'Email'}
-                nameIcon={'alternate-email'}
+                iconName={'alternate-email'}
                 marginTop={'48px'}
                 error={errors.email}
-                onChangeText={(text) => handleChangeText(text, 'email')}
+                onChangeText={(text) => {
+                    handleChangeText(text, 'email')
+                    console.log("O Email: " + text);
+                }}
                 />
                 <PasswordForm
                 placeholder={'Por favor insira sua senha'}

@@ -1,31 +1,42 @@
-import {View, TextInput, StyleSheet, Animated, Text} from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRef, useState } from "react";
-import { Container, ContainerForm } from "../styled_components/styled";
+import { TextInput, Text, Animated, View, StyleSheet } from "react-native"
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
-export const Form = ({placeholder, label, onChangeText, error, nameIcon, autoCapitalize, marginTop}) => {
+export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, placeHolder, label}) => {
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState('');
     const labelPosition = useRef(new Animated.Value(text ? 1 : 0)).current;
-    const labelStyle = {
+
+    const stylesLabel = {
         left: 36,
         top: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [10, -20]
+            outputRange: [18, -12]
         }),
         fontSize: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [18, 18]
-        }),
-    };
-
-    const animatedLabel = (toValue) => {
-        Animated.timing(labelPosition, {
-            toValue: toValue,
-            duration: 200,
-            useNativeDriver: false
-        }).start();
+            outputRange: [18, 16]
+        })
     }
+    return(
+        <View style={[styles.container, {marginTop: 32, borderColor: error ? 'red' : 'black'}]}>
+            <View style={styles.secondContainer}>
+                <MaterialIcons color={'black'} size={24} name={iconName}/>
+            </View>
+                <Animated.Text style={[styles.label, stylesLabel]}>{label}</Animated.Text>
+                <TextInput style={styles.editText}
+                onChangeText={handleTextChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType={keyboardType}
+                placeholder={isFocused ? placeHolder : null}
+                value={text}
+                />
+            {error && <Text style={styles.errorText}>{error}</Text>}
+        </View>
+    );
 
     function handleFocus(){
         setIsFocused(true);
@@ -34,56 +45,77 @@ export const Form = ({placeholder, label, onChangeText, error, nameIcon, autoCap
 
     function handleBlur(){
         setIsFocused(false);
-        if(!text){
-            animatedLabel(0);
+        if(!text) {
+           animatedLabel(0);
         }
+    }
+
+    function animatedLabel(toValue){
+        Animated.timing(labelPosition, {
+            toValue: toValue,
+            duration: 200,
+            useNativeDriver: false
+        }).start()
     }
 
     function handleTextChange(text){
         setText(text);
         if(onChangeText){
-            onChangeText(text);
+            onChangeText(text)
         }
-
-        if (text){
+        
+        if(text == '' || text){
             animatedLabel(1);
-        }else {
-            animatedLabel(isFocused ? 1 : 0)
+        } else {
+            animatedLabel(isFocused ? 1 : 0);
         }
     }
-    return(
-        <Container containerMarginTop={marginTop} containerBorderColor={error ? 'red' : 'black'}>
-            <ContainerForm>
-                <MaterialIcons color={'black'} size={24} name={nameIcon} style={{width: '10%'}}/>
-                <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>
-                <TextInput 
-                style={{height: '100%', width: '100%',fontSize: 18, padding: 0}}
-                placeholder={isFocused ? placeholder : ''} 
-                autoCorrect={false}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                onChangeText={handleTextChange}
-                autoCapitalize={autoCapitalize}
-                />
-            </ContainerForm>
-                {error && <Text style={styles.errorLabel}>{error}</Text>}
-        </Container>
-    );
+
 }
 
 const styles = StyleSheet.create({
-
-    label: {
-        color: 'black',
-        backgroundColor: 'white',
-        position: 'absolute',
-        zIndex: -1,
-        paddingHorizontal: 8
+    container: {
+        width: '90%',
+        height: 64,
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderWidth: 1,
+        borderRadius: 8,
+        marginStart: 16
     },
 
-    errorLabel: {
-        fontSize: 16,
+    secondContainer: {
+        height: '100%',
+        width: '10%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    thirdContainer: {
+        height: '100%',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+
+    errorText: {
         color: 'red',
+        fontWeight: 'bold',
+        fontSize: 16,
         padding: 8
+    },
+
+    label: {
+        zIndex: -2,
+        position: 'absolute',
+        color: 'black',
+        paddingHorizontal: 8,
+        backgroundColor: 'white'
+    },
+
+    editText: {
+        fontSize: 18,
+        width: '100%',
+        height: '100%'
     }
 });
