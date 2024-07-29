@@ -4,8 +4,10 @@ import { Form } from "../components/Form";
 import { useState } from "react";
 import {CustomButton} from '../components/CustomButton'
 import { PasswordForm } from "../components/PasswordForm";
+import { useNavigation } from "@react-navigation/native";
 
 export const SignUp = () => {
+    const navigation = useNavigation();
     const text = 'Com a sua carteira de cartões de crédito você pode fazer suas transações em qualquer lugar'
     const [data, setData] = useState({
         name: '',
@@ -67,9 +69,14 @@ export const SignUp = () => {
             handleError('nome inválido', 'email');
         }
 
-        DoRequest("POST", "signup", data).then((success) => {
-            console.log(success);
-        }).catch((error)=> {
+        DoRequest("POST", "signup", data)
+        .then((success) => success.code)
+        .then((success) => {
+            if(success === 200){
+                navigation.navigate("SignIn");
+            }
+        })
+        .catch((error)=> {
             console.log(error);
         })
 

@@ -6,8 +6,6 @@ import themes from '../themes/themes';
 import { CustomButton } from '../components/CustomButton';
 import { ToogleSwitch } from '../components/ToogleSwitch';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
-
 
 export const SignIn = () => {
     const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
@@ -31,17 +29,17 @@ export const SignIn = () => {
             handleError('Senha inválida', 'password');
         }
         
-        if({...data} != null && {...data} != ''){
-            handleError(null, 'email');
-            handleError(null, 'password');
-        } 
-        DoRequest("POST", "signin", data).then((success) => {
-            console.log(success);
-            if(success.code === 200){
+        // if({...data} != null && {...data} != ''){
+        //     handleError(null, 'email');
+        //     handleError(null, 'password');
+        // }
+        DoRequest("POST", "signin", data).then((success) => success.code)
+        .then((success) => {
+            if(success === 200) {
                 navigation.navigate("Home");
-                console.log("O  code => " + success.code);
             }
-        }).catch((error)=> {
+        })
+        .catch((error)=> {
             console.log(error);
         })
     }
