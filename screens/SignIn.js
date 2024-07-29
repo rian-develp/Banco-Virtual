@@ -6,7 +6,6 @@ import themes from '../themes/themes';
 import { CustomButton } from '../components/CustomButton';
 import { ToogleSwitch } from '../components/ToogleSwitch';
 import { useState } from 'react';
-import { api } from '../api/api';
 
 export const SignIn = () => {
     const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
@@ -33,9 +32,13 @@ export const SignIn = () => {
         //     handleError(null, 'email');
         //     handleError(null, 'password');
         // }
-        DoRequest("POST", "signin", data).then((success) => {
-            console.log(success);
-        }).catch((error)=> {
+        DoRequest("POST", "signin", data).then((success) => success.code)
+        .then((success) => {
+            if(success === 200) {
+                navigation.navigate("Home");
+            }
+        })
+        .catch((error)=> {
             console.log(error);
         })
    
