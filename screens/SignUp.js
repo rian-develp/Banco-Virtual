@@ -7,15 +7,15 @@ import { PasswordForm } from "../components/PasswordForm";
 import { useNavigation } from "@react-navigation/native";
 
 export const SignUp = () => {
+    const baseUrl = "https://api-credit-card-792613245.development.catalystserverless.com/server/";
     const navigation = useNavigation();
     const text = 'Com a sua carteira de cartões de crédito você pode fazer suas transações em qualquer lugar'
     const [data, setData] = useState({
         name: '',
+        email: '',
         birthdate: '',
         numberPhone: '',
-        email: '',
         password: '',
-        confirmPassword: ''
     });
     const [errors, setErrors] = useState({
         name: '',
@@ -72,7 +72,7 @@ export const SignUp = () => {
         DoRequest("POST", "signup", data)
         .then((success) => success.code)
         .then((success) => {
-            if(success === 200){
+            if(success === 201){
                 navigation.navigate("SignIn");
             }
         })
@@ -144,7 +144,8 @@ export const SignUp = () => {
                 marginTop={'24px'}
                 startIconName={'key'}
                 label={'Senha'}
-                placeholder={'por favor insira sua senha'}/>
+                placeholder={'por favor insira sua senha'}
+                onChangeText={(text) => handleChangeText(text, password)}/>
                 
                 <PasswordForm
                 marginTop={'24px'}
