@@ -104,17 +104,18 @@ export const SignUp = () => {
                 label={'Nome e sobrenome'}
                 placeholder={'Por favor insira seu nome e sobrenome'}
                 autoCapitalize={'none'}
-                nameIcon={'person'}
+                iconName={'person'}
                 marginTop={'56px'}
                 onChangeText={(text) => handleChangeText(text, 'name')}
                 error={errors.name}
+                marginDefinied={'42px'}
                 />
                 
                 <Form
                 label={'Data de nascimento'}
                 placeholder={'Por favor insira sua data de nascimento'}
                 autoCapitalize={'none'}
-                nameIcon={'calendar-month'}
+                iconName={'calendar-month'}
                 marginTop={'48px'}
                 onChangeText={(text) => handleChangeText(text, 'birthdate')}
                 error={errors.birthdate}/>
@@ -123,7 +124,7 @@ export const SignUp = () => {
                 label={'Telefone'}
                 placeholder={'Por favor insira seu número'}
                 autoCapitalize={'none'}
-                nameIcon={'smartphone'}
+                iconName={'smartphone'}
                 marginTop={'48px'}
                 onChangeText={(text) => handleChangeText(text, 'numberPhone')}
                 error={errors.numberPhone}/>
@@ -132,7 +133,7 @@ export const SignUp = () => {
                 label={'Email'}
                 placeholder={'Por favor insira seu email'}
                 autoCapitalize={'none'}
-                nameIcon={'mail'}
+                iconName={'mail'}
                 marginTop={'48px'}
                 onChangeText={(text) => handleChangeText(text, 'email')}
                 error={errors.email}/>
