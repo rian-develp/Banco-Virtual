@@ -84,7 +84,7 @@ export const PasswordForm = ({placeholder, startIconName, onChangeText, error, m
 const styles = StyleSheet.create({
     label: {
         color: 'black', 
-        backgroundColor: '#ffffff', 
+        backgroundColor: '#f1f1f1', 
         position: 'absolute',
         zIndex: -1,
         paddingHorizontal: 8
