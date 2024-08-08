@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Text} from "react";
 import { StyleSheet, Text, View, Image} from "react-native";
 
 export const Card = ({validityCard, customerName, cardName}) => {
@@ -34,17 +34,17 @@ export const Card = ({validityCard, customerName, cardName}) => {
     return(
         <View style={[styles.containerCard, {backgroundColor: cardColor}]}>
             <View style={styles.secondContainer}>
-                <Text style={[styles.cardName, {color: colorCardName}]}>{nameCard}</Text>
+                <Text style={[styles.cardName, {color: 'white'}]}>{nameCard}</Text>
                 <Image style={styles.logo} source={{uri: iconPath}}/> 
             </View>
 
             <View style={styles.numberCardContainer}>
-                <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 16, color: colorCardName}}>XXXX XXXX XXXX XXXX</Text>
+                <Text style={{fontSize: 24, fontWeight: 'bold', marginTop: 16, color: 'white'}}>XXXX XXXX XXXX XXXX</Text>
             </View>
 
             <View style={styles.lastContainer}>
-                <Text style={[styles.cardName, {color: colorCardName}]}>{EXAMPLE}</Text>
-                <Text style={[styles.cardName, {color: colorCardName, marginEnd: 16}]}>{VALIDITY}</Text>
+                <Text style={[styles.cardName, {color: 'white'}]}>{EXAMPLE}</Text>
+                <Text style={[styles.cardName, {color: 'white', marginEnd: 16}]}>{VALIDITY}</Text>
             </View>
         </View>
     );
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
         borderRadius: 16,
         marginStart: 32,
         marginEnd: 42,
+        marginTop: 32
     },
 
     secondContainer: {
