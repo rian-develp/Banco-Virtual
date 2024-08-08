@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { TextInput, Text, Animated, View, StyleSheet } from "react-native"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
-export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, placeHolder, label}) => {
+export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, placeHolder, label, typeMask}) => {
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState('');
     const labelPosition = useRef(new Animated.Value(text ? 1 : 0)).current;
@@ -59,9 +59,26 @@ export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, pla
     }
 
     function handleTextChange(text){
+        if(typeMask){
+            const textMasked = maskCustom(typeMask, text);
+            console.log("ASD => => " + textMasked);
+            setText(textMasked);
+            if(onChangeText){
+                onChangeText(textMasked);
+            }
+            
+            if(text == '' || text){
+                animatedLabel(1);
+            } else {
+                animatedLabel(isFocused ? 1 : 0);
+            } 
+            return;
+        }
+
+
         setText(text);
         if(onChangeText){
-            onChangeText(text)
+            onChangeText(text);
         }
         
         if(text == '' || text){
@@ -110,7 +127,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         color: 'black',
         paddingHorizontal: 8,
-        backgroundColor: 'white'
+        backgroundColor: '#f1f1f1'
     },
 
     editText: {

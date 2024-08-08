@@ -7,11 +7,13 @@ import { CustomButton } from '../components/CustomButton';
 import { ToogleSwitch } from '../components/ToogleSwitch';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import { validEmail } from '../utils/functions/validEmail';
 
 
 export const SignIn = () => {
     const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
     const navigation = useNavigation();
+    let isValidEmail = false;
     const [data, setData] = useState({
         email: null,
         password: null
@@ -23,18 +25,18 @@ export const SignIn = () => {
     });
 
     function validate(){
-        if(data.email == null || data.email == ''){
-            handleError('Email inválido', 'email');
-        }
-
-        if(data.password == null || data.password == ''){
-            handleError('Senha inválida', 'password');
-        }
         
-        // if({...data} != null && {...data} != ''){
-        //     handleError(null, 'email');
-        //     handleError(null, 'password');
-        // }
+        isValidEmail = validEmail(data.email);
+
+        if(isValidEmail == false) {
+            handleError("E-mail inválido", 'email');
+        } else {handleError(null, 'email');}
+
+        if(data.password < 5 || data.password == ''){
+            handleError("Senha incorreta", 'password');
+            return;
+        } else {handleError(null, 'password');}~
+        
         DoRequest("POST", "signin", data).then((success) => success.code)
         .then((success) => {
             if(success === 200) {
@@ -124,10 +126,8 @@ export const SignIn = () => {
 
 const styles = StyleSheet.create({ 
     container: {
-        backgroundColor: '#ffffff',
         flex: 1,
         flexDirection: 'column',
-        marginTop: 0
     },
 
     subHeader: {

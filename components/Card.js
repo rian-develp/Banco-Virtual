@@ -1,4 +1,4 @@
-import { useEffect, useState, Text} from "react";
+import { useEffect, useState} from "react";
 import { StyleSheet, Text, View, Image} from "react-native";
 
 export const Card = ({validityCard, customerName, cardName}) => {
