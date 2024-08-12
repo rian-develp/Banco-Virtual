@@ -2,11 +2,11 @@ import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
 export const CustomButton = ({variant, marginTop, text, disable, onPress = () => {}}) => {
     return(
-        <TouchableOpacity style={[styles.styleButton, {backgroundColor: variant ? 'white' : 'blue', 
-            borderColor: variant ? 'blue' : 'white', marginTop: marginTop}]} disabled={disable} onPress={() => {
+        <TouchableOpacity style={[styles.styleButton, {backgroundColor: variant ? 'white' : 'green', 
+            borderColor: variant ? 'green' : 'white', marginTop: marginTop}]} disabled={disable} onPress={() => {
                 onPress();
             }}>
-            <Text style={{color: variant ? 'blue' : 'white', fontSize: 16, fontWeight: 'bold'}}>{text}</Text>
+            <Text style={{color: variant ? 'green' : 'white', fontSize: 16, fontWeight: 'bold'}}>{text}</Text>
         </TouchableOpacity>
     );
 }
