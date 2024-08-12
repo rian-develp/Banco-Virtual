@@ -1,11 +1,12 @@
 import {View, StyleSheet, Text, FlatList, TouchableOpacity} from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import { Card } from '../components/Card';
+import { useNavigation } from '@react-navigation/native';
 export const Home = () => {
 
+    const navigation = useNavigation();
     const data = [
-        {
-          backgroundColor: '#000000',  
+        {  
           customerName: 'Marcio Borges',   
           validity: '12/2026',
           cardName: 'MasterCard',
@@ -13,25 +14,17 @@ export const Home = () => {
         },
 
         {
-          backgroundColor: '#000FFF',  
-          customerName: 'Marcio Borges',   
-          validity: '09/2024',
-          cardName: 'Ali Express',
-          colorNameCard: 'white'
-        },
-
-        {
-          backgroundColor: '#00FF00',  
           customerName: 'Marcio Borges',   
           validity: '12/2045',
           cardName: 'PicPay',
           colorNameCard: 'white'
-        }
+        },
+
     ];
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <MaterialIcons color={'white'} name={"arrow-back"} size={26} style={{padding: 16, paddingEnd: 24}}/>
+                <MaterialIcons color={'white'} name={"arrow-back"} size={26} style={{padding: 16, paddingEnd: 24}} onPress={() => {navigation.goBack()}}/>
                 <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold', marginBottom: 16}}>Home</Text>
             </View>
 
@@ -48,7 +41,7 @@ export const Home = () => {
             </View>   
              
              <View style={{backgroundColor: 'green', width: 64, height: 64, alignSelf: 'flex-end', borderRadius: 16, marginEnd: 24, marginTop: 160}}>
-                <TouchableOpacity style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}>
+                <TouchableOpacity style={{width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}} onPress={() => {navigation.navigate("InsertCard")}}>
                     <MaterialIcons size={56} color={'white'} name='add'/>
                 </TouchableOpacity>
              </View>
