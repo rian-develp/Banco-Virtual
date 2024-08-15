@@ -1,7 +1,7 @@
 import {TextInput, StyleSheet, Animated, Text} from "react-native";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState, useRef } from "react";
-import { Container, ContainerForm } from "../styled_components/styled";
+import { Container, ContainerForm } from "../styledComponents/styled";
 
 export const PasswordForm = ({placeholder, startIconName, onChangeText, error, marginTop, label}) => {
     const [hidePassword, setHidePassword] = useState(true);

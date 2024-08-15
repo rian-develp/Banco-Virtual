@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Tabs from '../top_material_navigator/Tabs';
+import Tabs from '../topMaterialNavigator/Tabs';
 import {Home} from '../screens/Home'
 import {InsertCard} from '../screens/InsertCard'
 

@@ -1,4 +1,5 @@
-import {View, StyleSheet, Text, ScrollView} from 'react-native'
+import {StyleSheet, ScrollView} from 'react-native'
+import { LayoutScreen, SubHeader, SubTitle, Title, Text} from '../styledComponents/styled';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Form } from '../components/Form';
 import { PasswordForm } from '../components/PasswordForm';
@@ -15,16 +16,16 @@ export const SignIn = () => {
     const navigation = useNavigation();
     let isValidEmail = false;
     const [data, setData] = useState({
-        email: null,
-        password: null
+        email: '',
+        password: 'null'
     });
 
     const [errors, setErrors] = useState({
-        email: null,
-        password: null
+        email: '',
+        password: ''
     });
 
-    function validate(){
+    const validate = () =>{
         
         isValidEmail = validEmail(data.email);
 
@@ -77,22 +78,22 @@ export const SignIn = () => {
         };
     }
 
-    function handleChangeText(text, data){
+    const handleChangeText = (text, data) => {
         setData((prevState) => ({...prevState, [data]: text}));
     }
 
-    function handleError(errorMessage, input){
+    const handleError = (errorMessage, input) => {
         setErrors((prevState) => ({...prevState, [input]: errorMessage}))
     }
 
     return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={{paddingBottom: 64}}>
-                <View style={styles.subHeader}>
+        <LayoutScreen>
+            <ScrollView contentContainerStyle={{paddingBottom: 24}}>
+                <SubHeader>
                     <MaterialIcons name='lock' size={32} color={'#000000'}/>
-                    <Text style={styles.title}>{themes.STRINGS.SIGNIN_TITLE}</Text>
-                </View>
-                <Text style={{color: 'black', fontSize: 24, margin: 24, marginTop: 48}}>{themes.STRINGS.SIGNIN_SUBTITLE}</Text>
+                    <Title>{themes.STRINGS.SIGNIN_TITLE}</Title>
+                </SubHeader>
+                <SubTitle>{themes.STRINGS.SIGNIN_SUBTITLE}</SubTitle>
                 <Text style={{color: 'black', fontSize: 16, marginStart: 24}}>{themes.STRINGS.SIGNIN_TEXT}</Text>
                 <Form
                 placeholder={'Por favor insira seu email'}
@@ -117,19 +118,14 @@ export const SignIn = () => {
 
                 <ToogleSwitch/>
 
-                <CustomButton variant={false} marginTop={48} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS} onPress={validate}/>
+                <CustomButton variant={false} marginTop={80} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS} onPress={validate}/>
                 <CustomButton variant={true} marginTop={24} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_FORGET_PASSWORD}/>
             </ScrollView>
-        </View>
+        </LayoutScreen>
     );
 }
 
 const styles = StyleSheet.create({ 
-    container: {
-        flex: 1,
-        flexDirection: 'column',
-    },
-
     subHeader: {
         width: '100%',
         height: '6%',

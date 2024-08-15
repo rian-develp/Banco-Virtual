@@ -70,7 +70,9 @@ export const SignUp = () => {
         isValidBirthdate ? handleError(null, 'birthdate') : handleError('Data inválida', 'birthdate'); 
         isValidNumberPhone ? handleError(null, 'numberPhone') : handleError('Número inválido', 'numberPhone');
 
-        if(data.password < 6) {
+        if(data.password == ''){
+            handleError("Por favor insira a senha", 'password');
+        } else if(data.password < 6) {
             handleError("A senha deve ter no mínimo 6 caracteres", 'password');
             return;
         } else {
