@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { TextInput, Text, Animated, View, StyleSheet } from "react-native"
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import { Container, ContainerForm } from "../styledComponents/styled";
 
-export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, placeHolder, label, typeMask}) => {
+export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, placeHolder, label, typeMask, marginTop}) => {
     const [isFocused, setIsFocused] = useState(false);
     const [text, setText] = useState('');
     const labelPosition = useRef(new Animated.Value(text ? 1 : 0)).current;
@@ -11,7 +12,7 @@ export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, pla
         left: 36,
         top: labelPosition.interpolate({
             inputRange: [0, 1],
-            outputRange: [18, -12]
+            outputRange: [10, -12]
         }),
         fontSize: labelPosition.interpolate({
             inputRange: [0, 1],
@@ -19,23 +20,25 @@ export const Form = ({onChangeText = () =>{}, keyboardType, error, iconName, pla
         })
     }
     return(
-        <View style={[styles.container, {marginTop: 32, borderColor: error ? 'red' : 'black'}]}>
-            <View style={styles.secondContainer}>
-                <MaterialIcons color={'black'} size={24} name={iconName}/>
-            </View>
-                <Animated.Text style={[styles.label, stylesLabel]}>{label}</Animated.Text>
-                <TextInput style={styles.editText}
-                onChangeText={handleTextChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                autoCapitalize="none"
-                autoCorrect={false}
-                keyboardType={keyboardType}
-                placeholder={isFocused ? placeHolder : null}
-                value={text}
-                />
+        <Container containerMarginTop={marginTop} containerBorderColor={error ? 'red' : 'black'}>
+            <ContainerForm>
+                <View style={styles.secondContainer}>
+                    <MaterialIcons color={'black'} size={24} name={iconName}/>
+                </View>
+                    <Animated.Text style={[styles.label, stylesLabel]}>{label}</Animated.Text>
+                    <TextInput style={styles.editText}
+                    onChangeText={handleTextChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType={keyboardType}
+                    placeholder={isFocused ? placeHolder : null}
+                    value={text}
+                    />
+            </ContainerForm>
             {error && <Text style={styles.errorText}>{error}</Text>}
-        </View>
+        </Container>
     );
 
     function handleFocus(){
