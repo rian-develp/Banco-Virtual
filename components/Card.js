@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image} from "react-native";
 export const Card = ({validityCard, customerName, cardName}) => {
     const [nameCard, setNameCard] = useState('');
     const [cardColor, setCardColor] = useState('#e2e2e2');
-    const[iconPath, setIconPath] = useState('');
+    const[iconPath, setIconPath] = useState('...');
     const EXAMPLE = "Nome:\n"+customerName;
     const VALIDITY = "Validade\n"+validityCard;
 
