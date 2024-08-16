@@ -103,6 +103,8 @@ export const SignUp = () => {
                     }
                 })
                 .catch((error) => {
+                    handleError("E-mail inválido", 'email');
+                    handleError("Senha inválida", 'password');
                     console.log(error);
                 })
         }
@@ -112,7 +114,7 @@ export const SignUp = () => {
         setErrors((prevState) => ({ ...prevState, [input]: errorMessage }))
     }
 
-    function handleChangeText(text, input) {
+    function handleChangeText(text, input){
         setData((prevState) => ({ ...prevState, [input]: text }));
     }
 
@@ -142,8 +144,11 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'person'}
                     marginTop={'56px'}
-                    onChangeText={(text) => handleChangeText(text, 'name')}
-                    error={errors.name}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'name')
+                        handleError(null, 'name');
+                    }}
+                    errorForm={errors.name}
                     marginDefinied={'42px'} />
 
                 <Form
@@ -153,8 +158,11 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'calendar-month'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'birthdate')}
-                    error={errors.birthdate} />
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'birthdate')
+                        handleError(null, 'birthdate');
+                    }}
+                    errorForm={errors.birthdate} />
 
                 <Form
                     label={'Telefone'}
@@ -163,8 +171,11 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'smartphone'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'numberPhone')}
-                    error={errors.numberPhone} />
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'numberPhone');
+                        handleError(null, 'numberPhone');
+                    }}
+                    errorForm={errors.numberPhone} />
 
                 <Form
                     label={'Email'}
@@ -172,8 +183,11 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'mail'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'email')}
-                    error={errors.email} />
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'email')
+                        handleError(null, 'email');
+                    }}
+                    errorForm={errors.email} />
 
                 <SubTitle
                     subtitlePaddingTop={'12px'}
@@ -184,16 +198,22 @@ export const SignUp = () => {
                     startIconName={'key'}
                     label={'Senha'}
                     placeholder={'por favor insira sua senha'}
-                    onChangeText={(text) => handleChangeText(text, 'password')}
-                    error={errors.password}/>
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'password')
+                        handleError(null, 'password');
+                    }}
+                    errorForm={errors.password}/>
 
                 <PasswordForm
                     marginTop={'40px'}
                     startIconName={'key'}
                     label={'Confirmar senha'}
                     placeholder={'por favor confirme a senha'}
-                    onChangeText={(text) => handleConfirmPassword(text)}
-                    error={errors.confirmPassword}/>
+                    onChangeText={(text) => {
+                        handleConfirmPassword(text);
+                        handleError(null, 'confirmPassword')
+                    }}
+                    errorForm={errors.confirmPassword}/>
 
                 <CustomButton
                     disable={false}
