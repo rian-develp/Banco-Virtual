@@ -15,7 +15,7 @@ function Tabs() {
       tabBarActiveTintColor: 'black',
       tabBarInactiveTintColor: 'white'
     }}>
-      <Tab.Screen name="Login" component={SignIn} />
+      <Tab.Screen name="Acesso" component={SignIn} />
       <Tab.Screen name="Cadastro" component={SignUp} />
     </Tab.Navigator>
   );
