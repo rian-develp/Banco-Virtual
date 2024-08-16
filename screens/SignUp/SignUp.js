@@ -99,7 +99,7 @@ export const SignUp = () => {
                 .then((success) => success.code)
                 .then((success) => {
                     if (success === 201) {
-                        navigation.navigate("Login");
+                        navigation.navigate("Acesso");
                     }
                 })
                 .catch((error) => {
