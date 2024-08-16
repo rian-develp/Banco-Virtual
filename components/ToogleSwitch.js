@@ -8,12 +8,12 @@ export const ToogleSwitch = () => {
         <View style={styles.container}>
             <TouchableOpacity style={[styles.outterSwitch, 
             isOn 
-            ? {justifyContent: "flex-end", backgroundColor: '#4e6aff'} 
+            ? {justifyContent: "flex-end", backgroundColor: 'green'} 
             : {justifyContent: "flex-start", backgroundColor: 'grey'}]} 
             onPress={() => {
                 setIsOn(!isOn);
             }}>
-                <View style={[styles.innerSwitch, {backgroundColor: isOn ? 'blue' : 'white'}]}/>
+                <View style={[styles.innerSwitch, {backgroundColor: isOn ? 'green' : 'white'}]}/>
             </TouchableOpacity>
             <Text style={{padding: 8, fontSize: 16, fontWeight: 'bold'}}>Mantenha-me Conectado</Text>
         </View>

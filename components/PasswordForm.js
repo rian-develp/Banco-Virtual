@@ -70,7 +70,7 @@ export const PasswordForm = ({placeholder, startIconName, onChangeText, error, m
                 secureTextEntry={hidePassword}
                 value={text}
                 />
-                <MaterialIcons color={'black'} size={24} name={hidePassword ? "visibility" : "visibility-off"} 
+                <MaterialIcons color={error ? 'red' : 'black'} size={24} name={hidePassword ? "visibility" : "visibility-off"} 
                 style={{width:'10%'}}
                 onPress={() => {
                     setHidePassword(!hidePassword)
@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     errorLabel: {
         marginTop: 16,
         fontSize: 16,
-        color: 'red'
+        color: 'red',
+        fontWeight: 'bold'
     }
 });

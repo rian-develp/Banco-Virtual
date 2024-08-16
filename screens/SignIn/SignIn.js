@@ -1,29 +1,29 @@
-import {StyleSheet, ScrollView} from 'react-native'
-import { LayoutScreen, SubHeader, SubTitle, Title, Text} from '../styledComponents/styled';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Form } from '../components/Form';
-import { PasswordForm } from '../components/PasswordForm';
-import themes from '../themes/themes';
-import { CustomButton } from '../components/CustomButton';
-import { ToogleSwitch } from '../components/ToogleSwitch';
-import { useState } from 'react';
+import { ScrollView } from 'react-native'
+import { Header, HeaderTitle, SubTitle, Text, LayoutScreen } from './styled';
+import { CustomButton } from '../../components/CustomButton';
+import { Form } from '../../components/Form';
+import { PasswordForm } from '../../components/PasswordForm';
+import { ToogleSwitch } from '../../components/ToogleSwitch';
+import { validEmail } from '../../utils/functions/validEmail';
 import { useNavigation } from '@react-navigation/native';
-import { validEmail } from '../utils/functions/validEmail';
+import { useState } from 'react';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import themes from '../../themes/themes';
 
 
 export const SignIn = () => {
     const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
     const navigation = useNavigation();
-    let isValidEmail = false;
     const [data, setData] = useState({
         email: '',
-        password: 'null'
+        password: ''
     });
-
+    
     const [errors, setErrors] = useState({
         email: '',
         password: ''
     });
+    let isValidEmail = false;
 
     const validate = () =>{
         
@@ -88,13 +88,13 @@ export const SignIn = () => {
 
     return (
         <LayoutScreen>
-            <ScrollView contentContainerStyle={{paddingBottom: 24}}>
-                <SubHeader>
+            <ScrollView contentContainerStyle={{paddingBottom: 56}}>
+                <Header>
                     <MaterialIcons name='lock' size={32} color={'#000000'}/>
-                    <Title>{themes.STRINGS.SIGNIN_TITLE}</Title>
-                </SubHeader>
+                    <HeaderTitle>{themes.STRINGS.SIGNIN_TITLE}</HeaderTitle>
+                </Header>
                 <SubTitle>{themes.STRINGS.SIGNIN_SUBTITLE}</SubTitle>
-                <Text style={{color: 'black', fontSize: 16, marginStart: 24}}>{themes.STRINGS.SIGNIN_TEXT}</Text>
+                <Text>{themes.STRINGS.SIGNIN_TEXT}</Text>
                 <Form
                 placeholder={'Por favor insira seu email'}
                 label={'Email'}
@@ -104,16 +104,15 @@ export const SignIn = () => {
                 onChangeText={(text) => {
                     handleChangeText(text, 'email')
                     console.log("O Email: " + text);
-                }}
-                />
+                }} />
+                
                 <PasswordForm
                 placeholder={'Por favor insira sua senha'}
                 label={'Senha'}
                 startIconName={'key'}
                 marginTop={'40px'}
                 error={errors.password}
-                onChangeText={(text) => handleChangeText(text, 'password')}
-                />
+                onChangeText={(text) => handleChangeText(text, 'password')} />
 
 
                 <ToogleSwitch/>
@@ -124,20 +123,3 @@ export const SignIn = () => {
         </LayoutScreen>
     );
 }
-
-const styles = StyleSheet.create({ 
-    subHeader: {
-        width: '100%',
-        height: '6%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 24
-    },
-
-    title: {
-        color: 'black',
-        fontSize: 32,
-        fontWeight: 'bold',
-    }
-});

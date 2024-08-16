@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { SignUp } from '../screens/SignUp';
-import { SignIn } from '../screens/SignIn' 
+import { SignUp } from '../screens/SignUp/SignUp';
+import { SignIn } from '../screens/SignIn/SignIn' 
 import { StyleSheet } from 'react-native';
 import Constants from 'expo-constants'
 
@@ -15,8 +15,8 @@ function Tabs() {
       tabBarActiveTintColor: 'black',
       tabBarInactiveTintColor: 'white'
     }}>
-      <Tab.Screen name="SignIn" component={SignIn} />
-      <Tab.Screen name="SignUp" component={SignUp} />
+      <Tab.Screen name="Login" component={SignIn} />
+      <Tab.Screen name="Cadastro" component={SignUp} />
     </Tab.Navigator>
   );
 }

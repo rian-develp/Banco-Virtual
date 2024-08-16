@@ -1,13 +1,14 @@
-import { StyleSheet, View, Text, ScrollView } from "react-native";
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Form } from "../components/Form";
+import { ScrollView } from "react-native";
+import { Header, HeaderTitle, SubTitle, Text, LayoutScreen } from "./styled";
+import { Form } from "../../components/Form";
 import { useState } from "react";
-import { CustomButton } from '../components/CustomButton'
-import { PasswordForm } from "../components/PasswordForm";
+import { CustomButton } from '../../components/CustomButton'
+import { PasswordForm } from "../../components/PasswordForm";
 import { useNavigation } from "@react-navigation/native";
-import { validDate } from '../utils/functions/validDate';
-import { validEmail } from '../utils/functions/validEmail';
-import { validNumberPhone } from '../utils/functions/validNumberPhone';
+import { validDate } from '../../utils/functions/validDate';
+import { validEmail } from '../../utils/functions/validEmail';
+import { validNumberPhone } from '../../utils/functions/validNumberPhone';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export const SignUp = () => {
     const baseUrl = "https://api-credit-card-792613245.development.catalystserverless.com/server/";
@@ -67,30 +68,38 @@ export const SignUp = () => {
         isValidNumberPhone = validNumberPhone(data.numberPhone);
 
         isValidEmail ? handleError(null, 'email') : handleError('E-mail inválido', 'email');
-        isValidBirthdate ? handleError(null, 'birthdate') : handleError('Data inválida', 'birthdate'); 
+        isValidBirthdate ? handleError(null, 'birthdate') : handleError('Data inválida', 'birthdate');
         isValidNumberPhone ? handleError(null, 'numberPhone') : handleError('Número inválido', 'numberPhone');
+        
+        if(data.name == ''){
+            handleError("Por favor insira seu nome", 'name');
+        } else {
+            handleError(null, 'name');
+        }
 
-        if(data.password == ''){
-            handleError("Por favor insira a senha", 'password');
-        } else if(data.password < 6) {
+        if (data.password == '') {
+            handleError("Crie uma senha", 'password')
+        } else if (data.password.length < 6) {
             handleError("A senha deve ter no mínimo 6 caracteres", 'password');
             return;
         } else {
             handleError(null, 'password');
         }
-        
-        if(confirmPassword != data.password){
-            handleError("As senhas não estão iguais", 'confirmPassword');
+
+        if (confirmPassword != data.password) {
+            handleError("As senhas não estão iguais",'confirmPassword');
             return;
+        } else {
+            handleError(null, 'confirmPassword');
         }
 
-        if(isValidEmail == true && isValidBirthdate == true && isValidNumberPhone == true && confirmPassword == data.password){
+        if (isValidEmail == true && isValidBirthdate == true && isValidNumberPhone == true && confirmPassword == data.password) {
 
             DoRequest("POST", "signup", data)
                 .then((success) => success.code)
                 .then((success) => {
                     if (success === 201) {
-                        navigation.navigate("SignIn");
+                        navigation.navigate("Login");
                     }
                 })
                 .catch((error) => {
@@ -111,16 +120,22 @@ export const SignUp = () => {
         setConfirmPassword(text);
     }
     return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={{ paddingBottom: 64 }} style={{ width: '100%' }}>
-                <View style={styles.header}>
-                    <MaterialIcons color={'black'} size={32} name="lock" />
-                    <Text style={styles.headerTitle}>CADASTRO</Text>
-                </View>
+        <LayoutScreen>
+            <ScrollView
+                style={{ width: '100%' }}
+                contentContainerStyle={{ paddingBottom: 64 }}>
 
-                <Text style={styles.subTitle}>Seja bem vindo!</Text>
-                <Text style={styles.text}>{text}</Text>
-                <Text style={styles.subTitle}>Dados pessoais</Text>
+                <Header>
+                    <MaterialIcons
+                        color={'black'}
+                        size={32}
+                        name="lock" />
+                    <HeaderTitle>CADASTRO</HeaderTitle>
+                </Header>
+
+                <SubTitle>Seja bem vindo!</SubTitle>
+                <Text>{text}</Text>
+                <SubTitle>Dados pessoais</SubTitle>
                 <Form
                     label={'Nome e sobrenome'}
                     placeholder={'Por favor insira seu nome e sobrenome'}
@@ -129,8 +144,7 @@ export const SignUp = () => {
                     marginTop={'56px'}
                     onChangeText={(text) => handleChangeText(text, 'name')}
                     error={errors.name}
-                    marginDefinied={'42px'}
-                />
+                    marginDefinied={'42px'} />
 
                 <Form
                     label={'Data de nascimento'}
@@ -138,7 +152,7 @@ export const SignUp = () => {
                     typeMask={"##/##/####"}
                     autoCapitalize={'none'}
                     iconName={'calendar-month'}
-                    marginTop={'48px'}
+                    marginTop={'40px'}
                     onChangeText={(text) => handleChangeText(text, 'birthdate')}
                     error={errors.birthdate} />
 
@@ -148,7 +162,7 @@ export const SignUp = () => {
                     typeMask={"(##) #####-####"}
                     autoCapitalize={'none'}
                     iconName={'smartphone'}
-                    marginTop={'48px'}
+                    marginTop={'40px'}
                     onChangeText={(text) => handleChangeText(text, 'numberPhone')}
                     error={errors.numberPhone} />
 
@@ -157,75 +171,37 @@ export const SignUp = () => {
                     placeholder={'Por favor insira seu email'}
                     autoCapitalize={'none'}
                     iconName={'mail'}
-                    marginTop={'48px'}
+                    marginTop={'40px'}
                     onChangeText={(text) => handleChangeText(text, 'email')}
                     error={errors.email} />
 
-                <Text style={{ fontSize: 24, marginTop: 56, marginStart: 16, fontWeight: 'bold' }}>Dados de acesso</Text>
+                <SubTitle
+                    subtitlePaddingTop={'12px'}
+                    subtitlePaddingBottom={'12px'}>Dados de acesso</SubTitle>
 
                 <PasswordForm
                     marginTop={'24px'}
                     startIconName={'key'}
                     label={'Senha'}
                     placeholder={'por favor insira sua senha'}
-                    onChangeText={(text) => handleChangeText(text, password)} />
+                    onChangeText={(text) => handleChangeText(text, 'password')}
+                    error={errors.password}/>
 
                 <PasswordForm
-                    marginTop={'24px'}
+                    marginTop={'40px'}
                     startIconName={'key'}
                     label={'Confirmar senha'}
                     placeholder={'por favor confirme a senha'}
-                    onChangeText={(text) => handleConfirmPassword(text)}/>
+                    onChangeText={(text) => handleConfirmPassword(text)}
+                    error={errors.confirmPassword}/>
 
                 <CustomButton
                     disable={false}
-                    marginTop={48}
+                    marginTop={56}
                     text={'Cadastrar'}
-                    onPress={validate}
-                />
+                    onPress={validate} />
 
             </ScrollView>
-        </View>
+        </LayoutScreen>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'baseline',
-        justifyContent: 'flex-start',
-    },
-
-    header: {
-        flexDirection: 'row',
-        width: '100%',
-        height: '8%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 16
-    },
-
-    headerTitle: {
-        fontSize: 32,
-        fontWeight: 'bold',
-        color: 'black',
-        padding: 8
-    },
-
-    subTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: 'black',
-        marginStart: 16,
-        marginTop: 16
-    },
-
-    text: {
-        fontSize: 16,
-        color: 'black',
-        marginStart: 16,
-        marginTop: 8,
-        paddingBottom: 24
-    }
-});
-

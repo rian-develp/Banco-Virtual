@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
 export const ContainerForm = styled.View`
     flex-direction: row;
@@ -35,24 +35,6 @@ export const ContainerFlatList = styled.View`
     height: ${56}%;
     align-items: 'center';
     justify-content: 'center';
-`;
-
-export const Header = styled.View`
-    flex-direction: row;
-    width: ${100}%;
-    height: ${14}%;
-    align-items: flex-end;
-    justify-content: flex-start;
-    background-color: 'green';
-`;
-
-export const SubHeader = styled.View`
-    width: ${100}%;
-    height: ${6}%;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-top: 24px;
 `;
 
 export const LayoutScreen = styled.SafeAreaView`
