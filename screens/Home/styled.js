@@ -1,9 +1,11 @@
 import styled from "styled-components/native";
+import themes from "../../themes/themes";
 
 export const LayoutScreen = styled.View`
     width: 100%;
     height: 100%;
     flex-direction: column;
+    background-color: ${themes.COLORS.BACKGROUND_LIGHT};
 `;
 
 export const ContainerFlatList = styled.View`

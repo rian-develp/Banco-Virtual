@@ -1,13 +1,20 @@
 import { TouchableOpacity } from 'react-native'
 import { LayoutScreen, Header, HeaderTitle, ContainerFab, ContainerFlatList } from './styled';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { CustomFlatList } from '../../components/CustomFlatList';
 
 export const Home = () => {
 
+    const route = useRoute();
     const navigation = useNavigation();
     
+
+        const cardName = route.params?.nameCard;
+        const validityCard = route.params?.validityCard;
+        const cardNumber = route.params?.numberCard;
+        const customerName = route.params?.customerName;
+
     return (
         <LayoutScreen>
             <Header>
@@ -22,7 +29,14 @@ export const Home = () => {
             </Header>
 
             <ContainerFlatList>
-                <CustomFlatList/>
+                {
+                    route.params ? <CustomFlatList
+                        cardName={cardName}
+                        cardNumber={cardNumber}
+                        customerName={customerName}
+                        validityCard={validityCard}
+                    />
+                        : null}
             </ContainerFlatList>
 
             <ContainerFab>

@@ -1,24 +1,29 @@
 import { Dimensions, FlatList } from "react-native";
-import { Card } from '../components/Card'
+import { Card } from '../components/Card/Card';
+import {useEffect} from 'react'
 const width = Dimensions.get('window');
-export const CustomFlatList = () => {
 
-    const data = [
-        {
-            customerName: 'Gerôncio Vieira',
-            validity: '12/2026',
-            cardName: 'MasterCard',
-            colorNameCard: 'white'
-        },
+export const CustomFlatList = ({ customerName, cardName, validityCard, cardNumber }) => {
 
-        {
-            customerName: 'Gerôncio Vieira',
-            validity: '12/2045',
-            cardName: 'PicPay',
-            colorNameCard: 'white'
-        },
-
-    ];
+    console.log("customer name => " + validityCard);
+    const list = [{
+        cardName: cardName,
+        validityCard: validityCard,
+        cardNumber: cardNumber,
+        customerName: customerName,
+    }];
+    
+    useEffect(() =>{
+        if(customerName && cardName && validityCard && cardNumber){
+            const fake = [{
+                cardName: cardName,
+                validityCard: validityCard,
+                cardNumber: cardNumber,
+                customerName: customerName,
+            }]
+            list.push(fake);
+        }
+    },[])
 
     return (
         <FlatList
@@ -28,17 +33,17 @@ export const CustomFlatList = () => {
             scrollEventThrottle={16}
             showsHorizontalScrollIndicator={false}
             snapToAlignment={'center'}
-            snapToOffSets={[...Array(data.length).map((value, index) => {
-                index * ((width * 0.8) - 40) * (i-1) * 40
+            snapToOffSets={[...Array(list.length).map((value, index) => {
+                index * ((width * 0.8) - 40) + (index - 1) * 40
             })]}
             pagingEnabled={true}
-            data={data}
+            extraData={list}
+            data={list}
             renderItem={({ item }) => <Card cardName={item.cardName}
-                validityCard={item.validity}
-                colorCardName={item.colorNameCard} 
-                color={item.backgroundColor} 
-                customerName={item.customerName} 
-                marginHorizontal={16}/>
+                validityCard={item.validityCard}
+                numberCard={item.cardNumber}
+                customerName={item.customerName}
+                marginHorizontal={16} />
             }
         />
     );

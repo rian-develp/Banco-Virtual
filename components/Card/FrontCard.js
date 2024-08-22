@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Image, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 
-const { width } = Dimensions.get('screen');
 
-export const Card = ({ validityCard, customerName, cardName, marginHorizontal}) => {
+export const FrontCard = ({ validityCard, customerName, cardName, numberCard}) => {
     const [nameCard, setNameCard] = useState('');
     const [cardColor, setCardColor] = useState('#e2e2e2');
     const [iconPath, setIconPath] = useState('...');
@@ -19,7 +18,7 @@ export const Card = ({ validityCard, customerName, cardName, marginHorizontal}) 
             setCardColor("#7a44c9");
         } else if (cardName === 'PicPay') {
             setIconPath("https://upload.wikimedia.org/wikipedia/commons/5/5e/PicPay_Logogrande.png");
-            setCardColor("#52d75f");
+            setCardColor("#00c15d");
         } else if (cardName === 'HiperCard') {
             setIconPath("https://logodownload.org/wp-content/uploads/2015/03/hipercard-logo-0.png");
             setCardColor("#BA1319");
@@ -36,10 +35,7 @@ export const Card = ({ validityCard, customerName, cardName, marginHorizontal}) 
     return (
         <View style={[styles.containerCard,
         {
-            backgroundColor: cardColor,
-            width: (width * 0.92),
-            height: (width / 1.8),
-            marginHorizontal: marginHorizontal
+            backgroundColor: cardColor
         }]}>
             <View style={styles.secondContainer}>
                 <Text style={[styles.cardName, { color: 'white' }]}>{nameCard}</Text>
@@ -47,7 +43,7 @@ export const Card = ({ validityCard, customerName, cardName, marginHorizontal}) 
             </View>
 
             <View style={styles.numberCardContainer}>
-                <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 16, color: 'white' }}>XXXX XXXX XXXX XXXX</Text>
+                <Text style={{ fontSize: 24, fontWeight: 'bold', marginTop: 16, color: 'white' }}>{numberCard}</Text>
             </View>
 
             <View style={styles.lastContainer}>
@@ -60,9 +56,10 @@ export const Card = ({ validityCard, customerName, cardName, marginHorizontal}) 
 
 const styles = StyleSheet.create({
     containerCard: {
+        width: '100%',
+        height: '100%',
         flexDirection: 'column',
         borderRadius: 16,
-        marginTop: 32
     },
 
     secondContainer: {

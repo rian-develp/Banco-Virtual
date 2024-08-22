@@ -148,7 +148,7 @@ export const SignUp = () => {
                         handleChangeText(text, 'name')
                         handleError(null, 'name');
                     }}
-                    errorForm={errors.name}
+                    error={errors.name}
                     marginDefinied={'42px'} />
 
                 <Form
@@ -162,7 +162,7 @@ export const SignUp = () => {
                         handleChangeText(text, 'birthdate')
                         handleError(null, 'birthdate');
                     }}
-                    errorForm={errors.birthdate} />
+                    error={errors.birthdate} />
 
                 <Form
                     label={'Telefone'}
@@ -175,7 +175,7 @@ export const SignUp = () => {
                         handleChangeText(text, 'numberPhone');
                         handleError(null, 'numberPhone');
                     }}
-                    errorForm={errors.numberPhone} />
+                    error={errors.numberPhone} />
 
                 <Form
                     label={'Email'}
@@ -187,7 +187,7 @@ export const SignUp = () => {
                         handleChangeText(text, 'email')
                         handleError(null, 'email');
                     }}
-                    errorForm={errors.email} />
+                    error={errors.email} />
 
                 <SubTitle
                     subtitlePaddingTop={'12px'}
@@ -202,7 +202,7 @@ export const SignUp = () => {
                         handleChangeText(text, 'password')
                         handleError(null, 'password');
                     }}
-                    errorForm={errors.password}/>
+                    error={errors.password}/>
 
                 <PasswordForm
                     marginTop={'40px'}
@@ -213,7 +213,7 @@ export const SignUp = () => {
                         handleConfirmPassword(text);
                         handleError(null, 'confirmPassword')
                     }}
-                    errorForm={errors.confirmPassword}/>
+                    error={errors.confirmPassword}/>
 
                 <CustomButton
                     disable={false}
