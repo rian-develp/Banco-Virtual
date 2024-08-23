@@ -1,7 +1,7 @@
 import { Container, Header, HeaderTitle, LayoutScreen } from "./styled";
 import { Card } from '../../components/Card/Card';
 import { Form } from '../../components/Form'
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useState } from "react";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { CustomButton } from '../../components/CustomButton'
@@ -11,11 +11,12 @@ import { handleValidityCard } from "../../utils/functions/handleValidityCard";
 
 export const InsertCard = () => {
 
+    const navigation = useNavigation();
+    const route = useRoute();
     const [nameCard, setNameCard] = useState('');
     const [validity, setValidity] = useState('');
     const [customerName, setCustomerName] = useState('');
     const [numberCard, setNumberCard] = useState('');
-    const navigation = useNavigation();
     const [varState, setVarState] = useState(resultNameCard);
     let resultNameCard = '';
 
@@ -114,15 +115,13 @@ export const InsertCard = () => {
 
                         if(resultValidityCard == false){
                             handleError("Data inválida", 'validity');
+                            return;
                         }
 
                         if(typeof(resultNameCard) === "string" && resultValidityCard == true){
-                            navigation.navigate("Home", {
-                                nameCard: varState,
-                                validityCard: validity,
-                                customerName: customerName,
-                                numberCard: numberCard
-                            });
+                            const newData = {varState, validity, numberCard, customerName}
+                            route.params.setData((prevData) => [...prevData, newData]);
+                            navigation.goBack();
                         }
                     }}
                 />

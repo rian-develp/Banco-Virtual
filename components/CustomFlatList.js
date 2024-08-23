@@ -5,26 +5,6 @@ const width = Dimensions.get('window');
 
 export const CustomFlatList = ({ customerName, cardName, validityCard, cardNumber }) => {
 
-    console.log("customer name => " + validityCard);
-    const list = [{
-        cardName: cardName,
-        validityCard: validityCard,
-        cardNumber: cardNumber,
-        customerName: customerName,
-    }];
-    
-    useEffect(() =>{
-        if(customerName && cardName && validityCard && cardNumber){
-            const fake = [{
-                cardName: cardName,
-                validityCard: validityCard,
-                cardNumber: cardNumber,
-                customerName: customerName,
-            }]
-            list.push(fake);
-        }
-    },[])
-
     return (
         <FlatList
             style={{ width: '100%', height: '100%' }}
