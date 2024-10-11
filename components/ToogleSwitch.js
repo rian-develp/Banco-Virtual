@@ -22,24 +22,24 @@ export const ToogleSwitch = () => {
 
 const styles = StyleSheet.create({
     container: {
-        width: 200,
+        width: '100%',
         height: 40,
-        justifyContent:'center',
+        justifyContent:'flex-start',
         alignItems: 'center',
-        marginTop: 32,
-        marginStart: 64,
+        marginTop: 48,
         flexDirection:'row',
     },
 
     outterSwitch: {
-        width: 80,
+        width: 55,
         height: 32,
         backgroundColor: 'grey',
         borderRadius: 16,
         alignItems: 'center',
         flexDirection: 'row',
         paddingHorizontal: 2,
-        opacity: 0.7
+        opacity: 0.7,
+        marginStart: 16
     },
     
     innerSwitch: {

@@ -1,4 +1,4 @@
-import { ScrollView } from 'react-native'
+import { Alert, ScrollView } from 'react-native'
 import { Header, HeaderTitle, SubTitle, Text, LayoutScreen } from './styled';
 import { CustomButton } from '../../components/CustomButton';
 import { Form } from '../../components/Form';
@@ -33,7 +33,7 @@ export const SignIn = () => {
             handleError("E-mail inválido", 'email');
         } else {handleError(null, 'email');}
 
-        if(data.password < 5 || data.password == ''){
+        if(data.password.length < 5 || data.password == ''){
             handleError("Senha incorreta", 'password');
             return;
         } else {handleError(null, 'password');}~
@@ -42,6 +42,8 @@ export const SignIn = () => {
         .then((success) => {
             if(success === 200) {
                 navigation.navigate("Home");
+            } else if(success != 200){
+                Alert.alert("E-mail ou senha inválida");
             }
         })
         .catch((error)=> {
@@ -103,7 +105,7 @@ export const SignIn = () => {
                 error={errors.email}
                 onChangeText={(text) => {
                     handleChangeText(text, 'email')
-                    console.log("O Email: " + text);
+                    handleError(null, 'email');
                 }} />
                 
                 <PasswordForm
@@ -112,7 +114,10 @@ export const SignIn = () => {
                 startIconName={'key'}
                 marginTop={'40px'}
                 error={errors.password}
-                onChangeText={(text) => handleChangeText(text, 'password')} />
+                onChangeText={(text) => {
+                    handleChangeText(text, 'password');
+                    handleError(null, 'password');
+                }} />
 
 
                 <ToogleSwitch/>

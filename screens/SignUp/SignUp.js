@@ -103,6 +103,8 @@ export const SignUp = () => {
                     }
                 })
                 .catch((error) => {
+                    handleError("E-mail inválido", 'email');
+                    handleError("Senha inválida", 'password');
                     console.log(error);
                 })
         }
@@ -112,7 +114,7 @@ export const SignUp = () => {
         setErrors((prevState) => ({ ...prevState, [input]: errorMessage }))
     }
 
-    function handleChangeText(text, input) {
+    function handleChangeText(text, input){
         setData((prevState) => ({ ...prevState, [input]: text }));
     }
 
@@ -142,7 +144,10 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'person'}
                     marginTop={'56px'}
-                    onChangeText={(text) => handleChangeText(text, 'name')}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'name')
+                        handleError(null, 'name');
+                    }}
                     error={errors.name}
                     marginDefinied={'42px'} />
 
@@ -153,7 +158,10 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'calendar-month'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'birthdate')}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'birthdate')
+                        handleError(null, 'birthdate');
+                    }}
                     error={errors.birthdate} />
 
                 <Form
@@ -163,7 +171,10 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'smartphone'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'numberPhone')}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'numberPhone');
+                        handleError(null, 'numberPhone');
+                    }}
                     error={errors.numberPhone} />
 
                 <Form
@@ -172,7 +183,10 @@ export const SignUp = () => {
                     autoCapitalize={'none'}
                     iconName={'mail'}
                     marginTop={'40px'}
-                    onChangeText={(text) => handleChangeText(text, 'email')}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'email')
+                        handleError(null, 'email');
+                    }}
                     error={errors.email} />
 
                 <SubTitle
@@ -184,7 +198,10 @@ export const SignUp = () => {
                     startIconName={'key'}
                     label={'Senha'}
                     placeholder={'por favor insira sua senha'}
-                    onChangeText={(text) => handleChangeText(text, 'password')}
+                    onChangeText={(text) => {
+                        handleChangeText(text, 'password')
+                        handleError(null, 'password');
+                    }}
                     error={errors.password}/>
 
                 <PasswordForm
@@ -192,7 +209,10 @@ export const SignUp = () => {
                     startIconName={'key'}
                     label={'Confirmar senha'}
                     placeholder={'por favor confirme a senha'}
-                    onChangeText={(text) => handleConfirmPassword(text)}
+                    onChangeText={(text) => {
+                        handleConfirmPassword(text);
+                        handleError(null, 'confirmPassword')
+                    }}
                     error={errors.confirmPassword}/>
 
                 <CustomButton

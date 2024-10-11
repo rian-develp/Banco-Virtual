@@ -40,12 +40,14 @@ const styles = StyleSheet.create({
         height: 64,
         backgroundColor: 'white',
         borderRadius: 8,
-        marginTop: 48
+        marginTop: 24,
+        marginStart: 40,
     },
 
     options:{
         borderRadius: 16,
         position: 'absolute',
+        zIndex: 2,
         top: 72,
         backgroundColor: 'white',
         width: '100%',
