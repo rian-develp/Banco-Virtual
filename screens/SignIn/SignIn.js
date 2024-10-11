@@ -10,10 +10,12 @@ import { useState } from 'react';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import themes from '../../themes/themes';
 
-
 export const SignIn = () => {
-    const baseUrl = 'https://api-credit-card-792613245.development.catalystserverless.com/server/'
+    
+    const baseUrl = themes.STRINGS.BASE_URL;
     const navigation = useNavigation();
+    let isValidEmail = false;
+    
     const [data, setData] = useState({
         email: '',
         password: ''
@@ -23,18 +25,17 @@ export const SignIn = () => {
         email: '',
         password: ''
     });
-    let isValidEmail = false;
 
-    const validate = () =>{
+    const validate = () => {
         
         isValidEmail = validEmail(data.email);
 
         if(isValidEmail == false) {
-            handleError("E-mail inválido", 'email');
+            handleError(themes.ERRORS.INVALID_EMAIL, 'email');
         } else {handleError(null, 'email');}
 
         if(data.password.length < 5 || data.password == ''){
-            handleError("Senha incorreta", 'password');
+            handleError(themes.ERRORS.INVALID_PASSWORD, 'password');
             return;
         } else {handleError(null, 'password');}~
         
@@ -43,7 +44,7 @@ export const SignIn = () => {
             if(success === 200) {
                 navigation.navigate("Home");
             } else if(success != 200){
-                Alert.alert("E-mail ou senha inválida");
+                Alert.alert(themes.ERRORS.INVALID_EMAIL_OR_PASSWORD);
             }
         })
         .catch((error)=> {
@@ -63,16 +64,7 @@ export const SignIn = () => {
         body: JSON.stringify(data),
         });
     
-        var res = await response.json()
-    
-        console.log('REQUEST =>')
-        console.log('POST => '+baseUrl+endPoint)
-        console.log('BODY => '+JSON.stringify(data))
-        console.log('\n\n ')
-        console.log('RESULT =>')
-        console.log('POST =>'+baseUrl+endPoint)
-        console.log('CODE => '+response.status)
-        console.log('RESPONSE => '+JSON.stringify(res, null, 2))
+        var res = await response.json();
         
         return {
         code: response.status,
@@ -92,16 +84,16 @@ export const SignIn = () => {
         <LayoutScreen>
             <ScrollView contentContainerStyle={{paddingBottom: 56}}>
                 <Header>
-                    <MaterialIcons name='lock' size={32} color={'#000000'}/>
+                    <MaterialIcons name='lock' size={32} color={themes.COLORS.BACKGROUND_DARK}/>
                     <HeaderTitle>{themes.STRINGS.SIGNIN_TITLE}</HeaderTitle>
                 </Header>
                 <SubTitle>{themes.STRINGS.SIGNIN_SUBTITLE}</SubTitle>
                 <Text>{themes.STRINGS.SIGNIN_TEXT}</Text>
                 <Form
-                placeholder={'Por favor insira seu email'}
+                placeholder={themes.STRINGS.PLACEHOLDER_EMAIL}
                 label={'Email'}
                 iconName={'alternate-email'}
-                marginTop={'48px'}
+                marginTop={`${themes.DIMENS.MARGIN_TOP48PX}px`}
                 error={errors.email}
                 onChangeText={(text) => {
                     handleChangeText(text, 'email')
@@ -109,10 +101,10 @@ export const SignIn = () => {
                 }} />
                 
                 <PasswordForm
-                placeholder={'Por favor insira sua senha'}
+                placeholder={themes.STRINGS.PLACEHOLDER_PASSWORD}
                 label={'Senha'}
                 startIconName={'key'}
-                marginTop={'40px'}
+                marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
                 error={errors.password}
                 onChangeText={(text) => {
                     handleChangeText(text, 'password');
@@ -122,8 +114,17 @@ export const SignIn = () => {
 
                 <ToogleSwitch/>
 
-                <CustomButton variant={false} marginTop={80} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS} onPress={validate}/>
-                <CustomButton variant={true} marginTop={24} text={themes.STRINGS.SIGNIN_TEXT_BUTTON_FORGET_PASSWORD}/>
+                <CustomButton 
+                variant={false} 
+                marginTop={themes.DIMENS.MARGIN_TOP_80PX} 
+                text={themes.STRINGS.SIGNIN_TEXT_BUTTON_ACCESS} 
+                onPress={validate}/>
+
+                <CustomButton 
+                variant={true} 
+                marginTop={themes.DIMENS.MARGIN_TOP_24PX} 
+                text={themes.STRINGS.SIGNIN_TEXT_BUTTON_FORGET_PASSWORD}/>
+
             </ScrollView>
         </LayoutScreen>
     );
