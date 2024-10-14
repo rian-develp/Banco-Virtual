@@ -8,6 +8,7 @@ import { CustomButton } from '../../components/CustomButton'
 import { ScrollView } from "react-native";
 import { handleCardName } from "../../utils/functions/handleCardName";
 import { handleValidityCard } from "../../utils/functions/handleValidityCard";
+import themes from "../../themes/themes";
 
 export const InsertCard = () => {
 
@@ -41,12 +42,11 @@ export const InsertCard = () => {
             <Header>
                 <MaterialIcons name="arrow-back" size={24} color="white" style={{ paddingHorizontal: 16, paddingBottom: 16 }}
                     onPress={() => { navigation.goBack() }} />
-                <HeaderTitle>Insert Card</HeaderTitle>
+                <HeaderTitle>{themes.STRINGS.INSERT_CARD_TITLE}</HeaderTitle>
             </Header>
             <ScrollView
                 style={{ width: '100%' }}
                 contentContainerStyle={{ paddingBottom: 64 }}>
-
 
                 <Container>
 
@@ -57,27 +57,16 @@ export const InsertCard = () => {
                         numberCard={numberCard}/>
 
                     <Form
-                        marginTop={'24px'}
-                        label={'Nome do cartão'}
-                        placeHolder={'Insira o nome do cartão'}
-                        iconName={'credit-card'}
-                        onChangeText={(text) => { 
-                            handleError(null, 'nameCard');
-                            resolve(text)          
-                        }}
-                        error={errors.nameCard}/>
-
-                    <Form
-                        marginTop={'32px'}
-                        label={'Nome e Sobrenome'}
-                        placeHolder={'Insira seu nome'}
+                        marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
+                        label={themes.STRINGS.LABEL_NAME}
+                        placeHolder={themes.STRINGS.PLACEHOLDER_CUSTOMER_NAME}
                         iconName={'person'}
                         onChangeText={(text) => { setCustomerName(text); }}/>
 
                     <Form
-                        marginTop={'32px'}
-                        label={'Validade'}
-                        placeHolder={'Insira a data de validade do cartão'}
+                        marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
+                        label={themes.STRINGS.LABEL_CARD_VALIDITY}
+                        placeHolder={themes.STRINGS.PLACEHOLDER_CARD_VALIDITY}
                         iconName={'calendar-month'}
                         typeMask={'##/####'}
                         onChangeText={(text) => { 
@@ -87,9 +76,9 @@ export const InsertCard = () => {
                         error={errors.validity}/>
 
                     <Form
-                        marginTop={'40px'}
-                        label={'Número do cartão'}
-                        placeHolder={'Insira o número do cartão'}
+                        marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
+                        label={themes.STRINGS.LABEL_CARD_NUMBER}
+                        placeHolder={themes.STRINGS.PLACEHOLDER_CARD_NUMBER}
                         iconName={'123'}
                         typeMask={'#### #### #### ####'}
                         onChangeText={(text) => { 
@@ -97,12 +86,13 @@ export const InsertCard = () => {
                             setNumberCard(text) 
                         }} 
                         error={errors.numberCard}/>
+
                 </Container>
 
                 <CustomButton
                     disable={false}
                     variant={false}
-                    marginTop={32}
+                    marginTop={themes.DIMENS.MARGIN_TOP32PX}
                     text={"Salvar"}
                     marginStart={0}
                     onPress={() => {
@@ -110,11 +100,11 @@ export const InsertCard = () => {
                         let resultValidityCard = handleValidityCard(validity);
 
                         if(resultNameCard == false){
-                            handleError("Cartão inválido", 'nameCard');
+                            handleError(themes.ERRORS.INVALID_CARD, 'nameCard');
                         }
 
                         if(resultValidityCard == false){
-                            handleError("Data inválida", 'validity');
+                            handleError(themes.ERRORS.INVALID_DATE, 'validity');
                             return;
                         }
 
