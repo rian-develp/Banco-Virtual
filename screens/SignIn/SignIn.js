@@ -88,7 +88,7 @@ export const SignIn = () => {
                     <HeaderTitle>{themes.STRINGS.SIGNIN_TITLE}</HeaderTitle>
                 </Header>
                 <SubTitle>{themes.STRINGS_SUBTITLE}</SubTitle>
-                <Text>{themes.STRINGS.SIGNIN_TEXT}</Text>
+                <Text>{themes.STRINGS.TEXT}</Text>
                 <Form
                 placeholder={themes.STRINGS.PLACEHOLDER_EMAIL}
                 label={'Email'}
