@@ -28,6 +28,7 @@ export default themes = {
         PLACEHOLDER_CUSTOMER_NAME: "Nome como está no cartão",
         PLACEHOLDER_CARD_VALIDITY: "Data de validade do cartão",
         PLACEHOLDER_CARD_NUMBER: "Insira o número do cartão",
+        PLACEHOLDER_CARD_NAME: "Insira o nome do cartão",
         LABEL_NAME: "Nome e sobrenome",
         LABEL_BIRTHDATE: "Data de nascimento",
         LABEL_NUMBER_PHONE: "Telefone",
@@ -35,7 +36,8 @@ export default themes = {
         LABEL_PASSWORD: "Senha",
         LABEL_CONFIRM_PASSWORD: "Confirmar senha",
         LABEL_CARD_VALIDITY: "Validade do cartão",
-        LABEL_CARD_NUMBER: "Número do cartão",
+        LABEL_CARD_NUMBER: "Número do cartão", 
+        LABEL_CARD_NAME: "Nome do cartão", 
     },
 
     ERRORS: {
@@ -59,7 +61,7 @@ export default themes = {
         MARGIN_TOP_56PX: 56,
         MARGIN_TOP48PX: 48,
         MARGIN_TOP40PX: 40,
-        MARGIN_TOP32PX: 32,
+        MARGIN_TOP_32PX: 32,
         MARGIN_TOP_24PX: 24,
         PADDING_TOP_24PX: 24,
         PADDING_TOP_12PX: 12,
