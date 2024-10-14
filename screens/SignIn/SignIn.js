@@ -87,7 +87,7 @@ export const SignIn = () => {
                     <MaterialIcons name='lock' size={32} color={themes.COLORS.BACKGROUND_DARK}/>
                     <HeaderTitle>{themes.STRINGS.SIGNIN_TITLE}</HeaderTitle>
                 </Header>
-                <SubTitle>{themes.STRINGS.SIGNIN_SUBTITLE}</SubTitle>
+                <SubTitle>{themes.STRINGS_SUBTITLE}</SubTitle>
                 <Text>{themes.STRINGS.SIGNIN_TEXT}</Text>
                 <Form
                 placeholder={themes.STRINGS.PLACEHOLDER_EMAIL}

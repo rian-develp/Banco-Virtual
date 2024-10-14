@@ -9,12 +9,15 @@ import { validDate } from '../../utils/functions/validDate';
 import { validEmail } from '../../utils/functions/validEmail';
 import { validNumberPhone } from '../../utils/functions/validNumberPhone';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import themes from "../../themes/themes";
+
 
 export const SignUp = () => {
-    const baseUrl = "https://api-credit-card-792613245.development.catalystserverless.com/server/";
-    let isValidEmail, isValidBirthdate, isValidNumberPhone = false;
     const navigation = useNavigation();
-    const text = 'Com a sua carteira de cartões de crédito você pode fazer suas transações em qualquer lugar'
+    const baseUrl = themes.STRINGS.BASE_URL;
+    const text = themes.STRINGS.TEXT
+    let isValidEmail, isValidBirthdate, isValidNumberPhone = false;
+
     const [data, setData] = useState({
         name: '',
         email: '',
@@ -47,15 +50,6 @@ export const SignUp = () => {
 
         var res = await response.json()
 
-        console.log('REQUEST =>')
-        console.log('POST => ' + baseUrl + endPoint)
-        console.log('BODY => ' + JSON.stringify(data))
-        console.log('\n\n ')
-        console.log('RESULT =>')
-        console.log('POST =>' + baseUrl + endPoint)
-        console.log('CODE => ' + response.status)
-        console.log('RESPONSE => ' + JSON.stringify(res, null, 2))
-
         return {
             code: response.status,
             body: res
@@ -67,9 +61,9 @@ export const SignUp = () => {
         isValidBirthdate = validDate(data.birthdate);
         isValidNumberPhone = validNumberPhone(data.numberPhone);
 
-        isValidEmail ? handleError(null, 'email') : handleError('E-mail inválido', 'email');
-        isValidBirthdate ? handleError(null, 'birthdate') : handleError('Data inválida', 'birthdate');
-        isValidNumberPhone ? handleError(null, 'numberPhone') : handleError('Número inválido', 'numberPhone');
+        isValidEmail ? handleError(null, 'email') : handleError(themes.ERRORS.INVALID_EMAIL, 'email');
+        isValidBirthdate ? handleError(null, 'birthdate') : handleError(themes.ERRORS.INVALID_DATE, 'birthdate');
+        isValidNumberPhone ? handleError(null, 'numberPhone') : handleError(themes.ERRORS.INVALID_NUMBER_PHONE, 'numberPhone');
         
         if(data.name == ''){
             handleError("Por favor insira seu nome", 'name');
@@ -78,9 +72,9 @@ export const SignUp = () => {
         }
 
         if (data.password == '') {
-            handleError("Crie uma senha", 'password')
+            handleError(themes.ERRORS.PASSWORD_IS_BLANK, 'password')
         } else if (data.password.length < 6) {
-            handleError("A senha deve ter no mínimo 6 caracteres", 'password');
+            handleError(themes.ERRORS.WEAK_PASSWORD, 'password');
             return;
         } else {
             handleError(null, 'password');
@@ -103,8 +97,8 @@ export const SignUp = () => {
                     }
                 })
                 .catch((error) => {
-                    handleError("E-mail inválido", 'email');
-                    handleError("Senha inválida", 'password');
+                    handleError(themes.ERRORS.INVALID_EMAIL, 'email');
+                    handleError(themes.ERRORS.INVALID_PASSWORD, 'password');
                     console.log(error);
                 })
         }
@@ -125,39 +119,38 @@ export const SignUp = () => {
         <LayoutScreen>
             <ScrollView
                 style={{ width: '100%' }}
-                contentContainerStyle={{ paddingBottom: 64 }}>
+                contentContainerStyle={{ paddingBottom: themes.DIMENS.PADDING_BOTTOM_64PX }}>
 
                 <Header>
                     <MaterialIcons
                         color={'black'}
-                        size={32}
+                        size={themes.DIMENS.ICON_SIZE_32PX}
                         name="lock" />
-                    <HeaderTitle>CADASTRO</HeaderTitle>
+                    <HeaderTitle>{themes.STRINGS.SIGNUP_TITLE}</HeaderTitle>
                 </Header>
 
-                <SubTitle>Seja bem vindo!</SubTitle>
+                <SubTitle>{themes.STRINGS.SUBTITLE}</SubTitle>
                 <Text>{text}</Text>
-                <SubTitle>Dados pessoais</SubTitle>
+                <SubTitle>{themes.STRINGS.SIGNUP_SUBTITLE1}</SubTitle>
                 <Form
-                    label={'Nome e sobrenome'}
-                    placeholder={'Por favor insira seu nome e sobrenome'}
+                    label={themes.STRINGS.LABEL_NAME}
+                    placeholder={themes.STRINGS.PLACEHOLDER_NAME}
                     autoCapitalize={'none'}
                     iconName={'person'}
-                    marginTop={'56px'}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP_56PX}px`}
                     onChangeText={(text) => {
                         handleChangeText(text, 'name')
                         handleError(null, 'name');
                     }}
-                    error={errors.name}
-                    marginDefinied={'42px'} />
+                    error={errors.name}/>
 
                 <Form
-                    label={'Data de nascimento'}
-                    placeholder={'Por favor insira sua data de nascimento'}
+                    label={themes.STRINGS.LABEL_BIRTHDATE}
+                    placeholder={themes.STRINGS.PLACEHOLDER_BIRTHDATE}
                     typeMask={"##/##/####"}
                     autoCapitalize={'none'}
                     iconName={'calendar-month'}
-                    marginTop={'40px'}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
                     onChangeText={(text) => {
                         handleChangeText(text, 'birthdate')
                         handleError(null, 'birthdate');
@@ -165,12 +158,12 @@ export const SignUp = () => {
                     error={errors.birthdate} />
 
                 <Form
-                    label={'Telefone'}
-                    placeholder={'Por favor insira seu número'}
+                    label={themes.STRINGS.LABEL_NUMBER_PHONE}
+                    placeholder={themes.STRINGS.PLACEHOLDER_NUMBER_PHONE}
                     typeMask={"(##) #####-####"}
                     autoCapitalize={'none'}
                     iconName={'smartphone'}
-                    marginTop={'40px'}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
                     onChangeText={(text) => {
                         handleChangeText(text, 'numberPhone');
                         handleError(null, 'numberPhone');
@@ -178,11 +171,11 @@ export const SignUp = () => {
                     error={errors.numberPhone} />
 
                 <Form
-                    label={'Email'}
-                    placeholder={'Por favor insira seu email'}
+                    label={themes.STRINGS.LABEL_EMAIL}
+                    placeholder={themes.STRINGS.PLACEHOLDER_EMAIL}
                     autoCapitalize={'none'}
                     iconName={'mail'}
-                    marginTop={'40px'}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
                     onChangeText={(text) => {
                         handleChangeText(text, 'email')
                         handleError(null, 'email');
@@ -190,14 +183,16 @@ export const SignUp = () => {
                     error={errors.email} />
 
                 <SubTitle
-                    subtitlePaddingTop={'12px'}
-                    subtitlePaddingBottom={'12px'}>Dados de acesso</SubTitle>
+                    subtitlePaddingTop={`${themes.DIMENS.PADDING_TOP_12PX}px`}
+                    subtitlePaddingBottom={`${themes.DIMENS.PADDING_BOTTOM_12PX}px`}>
+                    {themes.STRINGS.SIGNUP_SUBTITLE2}
+                </SubTitle>
 
                 <PasswordForm
-                    marginTop={'24px'}
+                    label={themes.STRINGS.LABEL_PASSWORD}
+                    placeholder={themes.STRINGS.PLACEHOLDER_PASSWORD}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP_24PX}px`}
                     startIconName={'key'}
-                    label={'Senha'}
-                    placeholder={'por favor insira sua senha'}
                     onChangeText={(text) => {
                         handleChangeText(text, 'password')
                         handleError(null, 'password');
@@ -205,10 +200,10 @@ export const SignUp = () => {
                     error={errors.password}/>
 
                 <PasswordForm
-                    marginTop={'40px'}
+                    label={themes.STRINGS.LABEL_CONFIRM_PASSWORD}
+                    placeholder={themes.STRINGS.PLACEHOLDER_CONFIRM_PASSWORD}
+                    marginTop={`${themes.DIMENS.MARGIN_TOP40PX}px`}
                     startIconName={'key'}
-                    label={'Confirmar senha'}
-                    placeholder={'por favor confirme a senha'}
                     onChangeText={(text) => {
                         handleConfirmPassword(text);
                         handleError(null, 'confirmPassword')
@@ -217,8 +212,8 @@ export const SignUp = () => {
 
                 <CustomButton
                     disable={false}
-                    marginTop={56}
-                    text={'Cadastrar'}
+                    marginTop={themes.DIMENS.MARGIN_TOP_56PX}
+                    text={themes.STRINGS.SIGNUP_TEXT_BUTTON_ACCESS}
                     onPress={validate} />
 
             </ScrollView>
