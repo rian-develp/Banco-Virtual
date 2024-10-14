@@ -11,6 +11,7 @@ export default themes = {
         BASE_URL: "https://api-credit-card-792613245.development.catalystserverless.com/server/",
         SIGNIN_TITLE: "Acesso",    
         SIGNUP_TITLE: "Cadastro",    
+        INSERT_CARD_TITLE: "Inserir Cartão",    
         SUBTITLE: "Seja bem vindo!",
         TEXT: "Com a sua carteira de cartões de crédito você pode fazer suas transações em qualquer lugar",
         SIGNIN_TEXT_BUTTON_ACCESS: "ACESSAR",    
@@ -24,12 +25,17 @@ export default themes = {
         PLACEHOLDER_NAME: "Por favor insira seu nome e sobrenome",
         PLACEHOLDER_BIRTHDATE: "Por favor insira sua data de nascimento",
         PLACEHOLDER_NUMBER_PHONE: "Por favor insira sua data de nascimento",
+        PLACEHOLDER_CUSTOMER_NAME: "Nome como está no cartão",
+        PLACEHOLDER_CARD_VALIDITY: "Data de validade do cartão",
+        PLACEHOLDER_CARD_NUMBER: "Insira o número do cartão",
         LABEL_NAME: "Nome e sobrenome",
         LABEL_BIRTHDATE: "Data de nascimento",
         LABEL_NUMBER_PHONE: "Telefone",
         LABEL_EMAIL: "Email",
         LABEL_PASSWORD: "Senha",
-        LABEL_CONFIRM_PASSWORD: "Confirmar senha"
+        LABEL_CONFIRM_PASSWORD: "Confirmar senha",
+        LABEL_CARD_VALIDITY: "Validade do cartão",
+        LABEL_CARD_NUMBER: "Número do cartão",
     },
 
     ERRORS: {
@@ -44,6 +50,7 @@ export default themes = {
         NUMBER_PHONE_IS_BLANK: "Insira seu número",
         WEAK_PASSWORD: "A senha deve ter no mínimo 6 caracteres",
         INVALID_NUMBER_PHONE: "Número inválido",
+        INVALID_CARD: "Cartão inválido",
     },
 
     DIMENS: {
@@ -52,6 +59,7 @@ export default themes = {
         MARGIN_TOP_56PX: 56,
         MARGIN_TOP48PX: 48,
         MARGIN_TOP40PX: 40,
+        MARGIN_TOP32PX: 32,
         MARGIN_TOP_24PX: 24,
         PADDING_TOP_24PX: 24,
         PADDING_TOP_12PX: 12,
